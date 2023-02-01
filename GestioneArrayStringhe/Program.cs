@@ -80,11 +80,16 @@ namespace GestioneArrayStringhe
                         else                                                            // Altrimenti
                         {
                             Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
-                            Console.WriteLine($"Elemento {e} trovato in posizone " + RicercaSeq(e, array));    // Stampa 'Elemento {e} trovato in posizone ' + posizione elemento (restituita dalla funzione)
+                            Console.WriteLine($"Elemento '{e}' trovato in posizone " + RicercaSeq(e, array));    // Stampa 'Elemento '{e}' trovato in posizone ' + posizione elemento (restituita dalla funzione)
                             Console.ResetColor();                                       // Reimposta colore
                         }
                         break;                                                          // Interrompere esecuzione
                     case 5:                                                             // Se 'scelta' uguale a 5
+                        Console.Write("Inserire l'elemento: ");                         // Stampa 'Inserire l'elemento: '
+                        e = Console.ReadLine();                                         // Input variabile 'e'
+                        Console.ForegroundColor = ConsoleColor.Green;                   // Imposta colore carattere a verde
+                        Console.WriteLine($"L'elemento '{e}' si ripete per " + NumeroRipet(e, array) + " volta/e");  // Stampa 'L'elemento '{e}' si ripete per " + valore resituito dalla funzione 'NumeroRipet' + " volta/e'
+                        Console.ResetColor();                                           // Resetta colore
                         break;                                                          // Interrompere esecuzione
                     case 6:                                                             // Se 'scelta' uguale a 6
                         break;                                                          // Interrompere esecuzione
@@ -157,6 +162,18 @@ namespace GestioneArrayStringhe
             return risultatoricerca;                                                    // Restituisci 'risultatoricerca'
         }
         // Visualizza nomi ripetuti con numero ripetizioni;
+        static int NumeroRipet(string e, string[] array)                                // Funzione 'NumeroRipet' che restituisce il numero di volte che si ripete il valore
+        {
+            int nr = 0;                                                                 // Dichiarazione variabile 'nr'
+            for (int i = 0; i < array.Length; i++)                                      // Ciclo controllo che scorre l'array
+            {
+                if (array[i] == e)                                                      // Se l'elemento dell'array in posizione 'i' equivale all'elemento inserito ('e')
+                {
+                    nr++;                                                               // Incrementa variabile 'nr'
+                }
+            }
+            return nr;                                                                  // Restituire 'nr'
+        }
         // Modifica di un nome;
         // Visualizzazione di tutti i nomi presenti;
         static void Visualizza(string[]array, ref int dim)                              // Funzione 'Visualizza' per stampare l'array
