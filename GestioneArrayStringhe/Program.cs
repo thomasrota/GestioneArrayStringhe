@@ -89,10 +89,7 @@ namespace GestioneArrayStringhe
                     case 6:                                                             // Se 'scelta' uguale a 6
                         break;                                                          // Interrompere esecuzione
                     case 7:                                                             // Se 'scelta' uguale a 7
-                        for (int i = 0; i < dim; i++)                                   // Ciclo stampa array
-                        {
-                            Console.Write(array[i] + " ");                              // Stampa array
-                        }
+                        Visualizza(array, ref dim);                                     // Chiamata funzione 'Visualizza'
                         break;                                                          // Interrompere esecuzione
                     case 8:                                                             // Se 'scelta' uguale a 8
                         break;                                                          // Interrompere esecuzione
@@ -142,7 +139,7 @@ namespace GestioneArrayStringhe
         }
         // Ordinamento dei nomi (BubbleSort);
         // Ricerca sequenziale;
-        static int RicercaSeq (string e, string[] array)                                // Funzione 'RicercaSeq' che cerca e restituisce la posizione di un elemento
+        static int RicercaSeq(string e, string[] array)                                 // Funzione 'RicercaSeq' che cerca e restituisce la posizione di un elemento
         {
             int risultatoricerca = 0;                                                   // Dichiarazione variabile tipo intero 'risultatoricerca'
             for (int i = 0; i < array.Length; i++)                                      // Ciclo controllo presenza elemento ricercato
@@ -162,6 +159,13 @@ namespace GestioneArrayStringhe
         // Visualizza nomi ripetuti con numero ripetizioni;
         // Modifica di un nome;
         // Visualizzazione di tutti i nomi presenti;
+        static void Visualizza(string[]array, ref int dim)                              // Funzione 'Visualizza' per stampare l'array
+        {
+            for (int i = 0; i < dim; i++)                                               // Ciclo stampa array
+            {
+                Console.Write(array[i] + " ");                                          // Stampa array + spazio per distanziare gli elementi
+            }
+        }
         // Ricerca del nome più lungo e più corto;
         // Cancellazione di tutte le occorrenze di un nome;
     }
