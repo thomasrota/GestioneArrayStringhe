@@ -69,6 +69,20 @@ namespace GestioneArrayStringhe
                     case 3:                                                             // Se 'scelta' uguale a 3
                         break;                                                          // Interrompere esecuzione
                     case 4:                                                             // Se 'scelta' uguale a 4
+                        Console.Write("Inserire elemento da ricercare: ");              // Stampa 'Inserire elemento da ricercare:'
+                        e = Console.ReadLine();                                         // Input variabie 'e'
+                        if (RicercaSeq(e, array) == -1)                                 // Se valore resituito dalla funziome 'RicercaSeq' equivale a -1
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
+                            Console.WriteLine("Elemento non trovato!");                 // Stampa 'Elemento non trovato!'
+                            Console.ResetColor();                                       // Reimposta colore
+                        }
+                        else                                                            // Altrimenti
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
+                            Console.WriteLine($"Elemento {e} trovato in posizone " + RicercaSeq(e, array));    // Stampa 'Elemento {e} trovato in posizone ' + posizione elemento (restituita dalla funzione)
+                            Console.ResetColor();                                       // Reimposta colore
+                        }
                         break;                                                          // Interrompere esecuzione
                     case 5:                                                             // Se 'scelta' uguale a 5
                         break;                                                          // Interrompere esecuzione
@@ -128,6 +142,23 @@ namespace GestioneArrayStringhe
         }
         // Ordinamento dei nomi (BubbleSort);
         // Ricerca sequenziale;
+        static int RicercaSeq (string e, string[] array)                                // Funzione 'RicercaSeq' che cerca e restituisce la posizione di un elemento
+        {
+            int risultatoricerca = 0;                                                   // Dichiarazione variabile tipo intero 'risultatoricerca'
+            for (int i = 0; i < array.Length; i++)                                      // Ciclo controllo presenza elemento ricercato
+            {
+                if (array[i] == e)                                                      // Se elemento array in posizione 'i' è uguale a 'e' (elemento da ricercare)
+                {
+                    risultatoricerca = i;                                               // Assegnazione 'risultatoricerca' valore 'i'
+                    break;                                                              // Interrompere esecuzione
+                }
+                else                                                                    // Altrimenti
+                {
+                    risultatoricerca = -1;                                              // Assegnazione a 'risultatoricerca' valore '-1'
+                }
+            }
+            return risultatoricerca;                                                    // Restituisci 'risultatoricerca'
+        }
         // Visualizza nomi ripetuti con numero ripetizioni;
         // Modifica di un nome;
         // Visualizzazione di tutti i nomi presenti;
