@@ -30,21 +30,41 @@ namespace GestioneArrayStringhe
                 switch (scelta)                                                         // Selezione casi in base al valore della variabile 'scelta'
                 {
                     default:                                                            // Se 'scelta' non corrisponde a nessun valore dei casi
+                        Console.ForegroundColor = ConsoleColor.Red;                     // Imposta colore carattere a rosso
                         Console.WriteLine("Opzione non valida!");                       // Stampa 'Opzione non valida!'
+                        Console.ResetColor();                                           // Reimposta colore
                         break;                                                          // Interrompi esecuzione
                     case 1:
-                        Console.WriteLine("Inserire elemento: ");
-                        e = Console.ReadLine();
+                        Console.Write("Inserire elemento: ");                           // Stampa 'Inserire elemento: '
+                        e = Console.ReadLine();                                         // Input variabile 'e'
                         if (Aggiunta(e, array, ref dim) == true)                        // Se chiamata funzione 'Aggiunta' restituisce 'true'
                         {
+                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
                             Console.WriteLine("Elemento inserito correttamente!");      // Stampa 'Elemento inserito correttamente!'
+                            Console.ResetColor();                                       // Reimposta colore
                         }
                         else                                                            // ...altrimenti...
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
                             Console.WriteLine("Array pieno!");                          // Stampa 'Array pieno!'
+                            Console.ResetColor();                                       // Reimposta colore
                         }
                         break;                                                          // Interrompere esecuzione
                     case 2:                                                             // Se 'scelta' uguale ad 2
+                        Console.Write("Inserire elemento che si desidera eliminare: "); // Stampa 'Inserire elemento che si desidera eliminare:'
+                        e = Console.ReadLine();                                         // Input variabile 'e'
+                        if (CancellaSingolo(e, array, ref dim) == true)                 // Se chiamata funzione 'Cancella' restituisce 'true'
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
+                            Console.WriteLine("Elemento cancellato correttamente!");    // Stampa 'Elemento cancellato correttamente!'
+                            Console.ResetColor();                                       // Reimposta colore
+                        }
+                        else                                                            // Altrimenti
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
+                            Console.WriteLine("Elemento non eliminato correttamente!"); // Stampa 'Elemento non eliminato correttamente!'
+                            Console.ResetColor();                                       // Reimposta colore
+                        }
                         break;                                                          // Interrompere esecuzione
                     case 3:                                                             // Se 'scelta' uguale a 3
                         break;                                                          // Interrompere esecuzione
@@ -75,7 +95,7 @@ namespace GestioneArrayStringhe
         // Aggiunta di un nome;
         static bool Aggiunta(string e, string[] array, ref int index)                   // Funzione 'Aggiunta' per aggiungere elementi all'array
         {
-            bool agg = true;
+            bool agg = true;                                                            // Dichiarazioe variabile 'agg'
             if (index < array.Length)                                                   // Se è stata raggiunta la dimensione massima dell'array           
             {
                 array[index] = e;                                                       // Aggiungere l'elemento
@@ -88,6 +108,24 @@ namespace GestioneArrayStringhe
             return agg;                                                                 // Restiruire 'agg'
         }
         // Cancellazione del singolo nome;
+        static bool CancellaSingolo(string e, string[] array, ref int dim)              // Funzione 'CancellaSingolo' per cancellare un singolo elemento dall'array
+        {
+            bool cancellatos = false;                                                   // Dichiarazione variabile 'cancellatos'
+            for (int i = 0; i < array.Length; i++)                                      // Ciclo
+            {
+                if (array[i] == e)                                                      // Condizione per verificare che a 'i' sia presente 'e'
+                {
+                    dim--;                                                              // Diminuzione variabile 'dim'
+                    for (int j = i; j < array.Length - 1; j++)                          // Ciclo per spostare di una posizione indietro tutti i valori dopo la posizione del valore eliminato
+                    {
+                        array[j] = array[j + 1];
+                    }
+                    cancellatos = true;                                                 // Assegnazione alla variabile 'cancellatos' il valore 'true'
+                    break;                                                              // Interruzione esecuzione
+                }
+            }
+            return cancellatos;
+        }
         // Ordinamento dei nomi (BubbleSort);
         // Ricerca sequenziale;
         // Visualizza nomi ripetuti con numero ripetizioni;
