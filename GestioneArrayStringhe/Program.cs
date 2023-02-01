@@ -87,9 +87,18 @@ namespace GestioneArrayStringhe
                     case 5:                                                             // Se 'scelta' uguale a 5
                         Console.Write("Inserire l'elemento: ");                         // Stampa 'Inserire l'elemento: '
                         e = Console.ReadLine();                                         // Input variabile 'e'
-                        Console.ForegroundColor = ConsoleColor.Green;                   // Imposta colore carattere a verde
-                        Console.WriteLine($"L'elemento '{e}' si ripete per " + NumeroRipet(e, array) + " volta/e");  // Stampa 'L'elemento '{e}' si ripete per " + valore resituito dalla funzione 'NumeroRipet' + " volta/e'
-                        Console.ResetColor();                                           // Resetta colore
+                        if (NumeroRipet(e, array) != 0)                                 // Se il valore resituito dalla funzione 'NumeroRipet' è diverso da 0
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
+                            Console.WriteLine($"L'elemento '{e}' si ripete per " + NumeroRipet(e, array) + " volta/e");  // Stampa 'L'elemento '{e}' si ripete per " + valore resituito dalla funzione 'NumeroRipet' + " volta/e'
+                            Console.ResetColor();                                       // Resetta colore
+                        }
+                        else                                                            // Altrimenti
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
+                            Console.WriteLine($"L'elemento '{e}' non è presente nell'array");  // Stampa 'L'elemento '{e}' non è presente nell'array'
+                            Console.ResetColor();                                       // Resetta colore
+                        }
                         break;                                                          // Interrompere esecuzione
                     case 6:                                                             // Se 'scelta' uguale a 6
                         break;                                                          // Interrompere esecuzione
@@ -99,6 +108,20 @@ namespace GestioneArrayStringhe
                     case 8:                                                             // Se 'scelta' uguale a 8
                         break;                                                          // Interrompere esecuzione
                     case 9:                                                             // Se 'scelta' uguale a 9
+                        Console.Write("Inserire l'elemento: ");                         // Stampa 'Inserire l'elemento:'
+                        e = Console.ReadLine();                                         // Input varibile 'e'
+                        if (CancellaOcc(e, array, ref dim) == true)                     // Se valore restituiro dalla funzione 'CancellaOcc' è 'true'
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
+                            Console.WriteLine("Tutte le occorrenze sono state cancellate correttamente!");  // Stampa 'Tutte le occorrenze sono state cancellate correttamente!'
+                            Console.ResetColor();                                       // Resetta colore
+                        }
+                        else                                                            // Altrimenti
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
+                            Console.WriteLine("Errore! Occorrenze non canellate correttamente!");   // Stampa 'Errore! Occorrenze non canellate correttamente!'
+                            Console.ResetColor();                                       // Resetta colore
+                        }
                         break;                                                          // Interrompere esecuzione
                     case 0:                                                             // Se 'scelta' uguale a 0
                         Environment.Exit(1);                                            // Uscita programma
@@ -134,7 +157,7 @@ namespace GestioneArrayStringhe
                     dim--;                                                              // Diminuzione variabile 'dim'
                     for (int j = i; j < array.Length - 1; j++)                          // Ciclo per spostare di una posizione indietro tutti i valori dopo la posizione del valore eliminato
                     {
-                        array[j] = array[j + 1];
+                        array[j] = array[j + 1];                                        // Assegnazione all'elemento in posizione 'j' l'elemento successivo
                     }
                     cancellatos = true;                                                 // Assegnazione alla variabile 'cancellatos' il valore 'true'
                     break;                                                              // Interruzione esecuzione
@@ -162,7 +185,7 @@ namespace GestioneArrayStringhe
             return risultatoricerca;                                                    // Restituisci 'risultatoricerca'
         }
         // Visualizza nomi ripetuti con numero ripetizioni;
-        static int NumeroRipet(string e, string[] array)                                // Funzione 'NumeroRipet' che restituisce il numero di volte che si ripete il valore
+        static int NumeroRipet(string e, string[] array)                                // Funzione 'NumeroRipet' che restituisce il numero di volte che si ripete il valore all'interno dell'array
         {
             int nr = 0;                                                                 // Dichiarazione variabile 'nr'
             for (int i = 0; i < array.Length; i++)                                      // Ciclo controllo che scorre l'array
@@ -185,5 +208,23 @@ namespace GestioneArrayStringhe
         }
         // Ricerca del nome più lungo e più corto;
         // Cancellazione di tutte le occorrenze di un nome;
+        static bool CancellaOcc(string e, string[] array, ref int dim)                  // Funzione 'CancellaOcc' che cancella tutte le occorrenze di un elemento
+        {
+            bool canc = false;                                                          // Dichiarazione variabile 'canc'
+            for (int i = 0; i < dim; i++)                                               // Ciclo che scorre tutt l'array
+            {
+                if (array[i] == e)                                                      // Se l'elemento dell'array alla posizione 'i' è uguale a 'e'
+                {
+                    dim--;                                                              // Decrementa 'dim'
+                    for (int j = i; j < dim; j++)                                       // Ciclo che sposta tutti gli elementi successivi all'elemento cancellato una posizione indietro
+                    {
+                        array[j] = array[j + 1];                                        // Assegnazione all'elemento in posizione 'j' l'elemento successivo
+                    }
+                    i--;                                                                // Decrementa 'i'
+                    canc = true;                                                        // Assegnazione valore 'true' alla variabile 'canc'
+                }
+            }
+            return canc;                                                                // Restituire 'canc'
+        }
     }
 }
