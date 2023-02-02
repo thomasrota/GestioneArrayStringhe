@@ -22,7 +22,7 @@ namespace GestioneArrayStringhe
             {
                 // Stampa opzioni
                 Console.Clear();                                                        // Pulizia contenuto console
-                Console.WriteLine("Seleziona un'opzione:\n1 - Aggiunta\n2 - Cancella\n3 - Ordinamento (alfabeitco)\n4 - Ricerca sequenziale\n5 - Visualizza ripetuti\n6 - Modifica nome\n7 - Visualizzazione array\n8 - Ricerca nome più lungo e più corto, visualizzazione\n9 - Cancella tutti elementi uguali\n0 - Uscita");         // Stampa messaggi selezione casi
+                Console.WriteLine("Seleziona un'opzione:\n1 - Aggiunta\n2 - Cancella\n3 - Ordinamento (alfabeitco)\n4 - Ricerca sequenziale\n5 - Visualizza ripetuti\n6 - Modifica nome\n7 - Visualizzazione array\n8 - Ricerca nome più lungo e più corto\n9 - Cancella tutti elementi uguali\n0 - Uscita");         // Stampa messaggi selezione casi
                 Console.WriteLine();                                                    // A capo
                 Console.Write("Inserisci la scelta: ");                                 // Scelta opzione
                 scelta = Convert.ToInt32(Console.ReadLine());                           // Input variabile 'scelta'
@@ -106,6 +106,22 @@ namespace GestioneArrayStringhe
                         }
                         break;                                                          // Interrompere esecuzione
                     case 6:                                                             // Se 'scelta' uguale a 6
+                        Console.Write("Inserire posizione dell'elemento che si vuole modificare: ");    // Stampa 'Inserire posizione dell'elemento che si vuole modificare:'
+                        int p = Convert.ToInt32(Console.ReadLine());                    // Input variabile 'p'
+                        Console.Write("Inserire elemento: ");                           // Stampa 'Inserire elemento:'
+                        e = Console.ReadLine();                                         // Input variabile 'e'
+                        if (ModificaN(e, p, array, ref dim) == false)                   // Se valore restituito dalla variabile 'ModificaN' è 'false'
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
+                            Console.WriteLine("Posizione non valida!");                 // Stampa 'Posizone non valida!'
+                            Console.ResetColor();                                       // Reimposta colore
+                        }
+                        else                                                            // Altrimenti
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
+                            Console.WriteLine($"Elemento in posizione {p} modificato correttamente!");  // Stampa 'Elemento in posizione {p} modificato correttamente!'
+                            Console.ResetColor();                                       // Resetta colore
+                        }
                         break;                                                          // Interrompere esecuzione
                     case 7:                                                             // Se 'scelta' uguale a 7
                         Visualizza(array, ref dim);                                     // Chiamata funzione 'Visualizza'
@@ -221,8 +237,22 @@ namespace GestioneArrayStringhe
             return nr;                                                                  // Restituire 'nr'
         }
         // Modifica di un nome;
+        static bool ModificaN(string e, int p, string[] array, ref int dim)             // Funzione 'MofificaN' che va a modificare un elemento in una determinata posizone
+        {
+            bool mod;                                                                   // Dichiarazione variabile 'mod'
+            if (p < 0 || p > dim)                                                       // Se 'p' minore 0 o 'p' maggiore di 'dim'
+            {
+                mod = false;                                                            // Assegna a 'mod' valore 'false'
+            }
+            else                                                                        // Altrimenti
+            {
+                array[p] = e;                                                           // "Sovrascrivi" elemento array in posizione 'p' con 'e'
+                mod = true;                                                             // Assegna a 'mod' valore 'true'
+            }
+            return mod;                                                                 // Restituisci 'mod'
+        }
         // Visualizzazione di tutti i nomi presenti;
-        static void Visualizza(string[]array, ref int dim)                              // Funzione 'Visualizza' per stampare l'array
+        static void Visualizza(string[] array, ref int dim)                             // Funzione 'Visualizza' per stampare l'array
         {
             for (int i = 0; i < dim; i++)                                               // Ciclo stampa array
             {
