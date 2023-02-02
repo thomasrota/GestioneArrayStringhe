@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace GestioneArrayStringhe
 {
@@ -67,6 +67,11 @@ namespace GestioneArrayStringhe
                         }
                         break;                                                          // Interrompere esecuzione
                     case 3:                                                             // Se 'scelta' uguale a 3
+                        BubbleSort(array, ref dim);                                     // Chiamata funzione 'BubbleSort'
+                        Thread.Sleep(1000);                                             // Attesa esecuzione di 1 secondo
+                        Console.ForegroundColor = ConsoleColor.Green;                   // Imposta colore carattere a verde
+                        Console.WriteLine("L'array è stato ordinato correttamente!");   // Stampa 'L'array è stato ordinato correttamente!'
+                        Console.ResetColor();                                           // Reimposta colore
                         break;                                                          // Interrompere esecuzione
                     case 4:                                                             // Se 'scelta' uguale a 4
                         Console.Write("Inserire elemento da ricercare: ");              // Stampa 'Inserire elemento da ricercare:'
@@ -163,9 +168,27 @@ namespace GestioneArrayStringhe
                     break;                                                              // Interruzione esecuzione
                 }
             }
-            return cancellatos;
+            return cancellatos;                                                         // Restituisci 'cancellatos'
         }
         // Ordinamento dei nomi (BubbleSort);
+        static void BubbleSort(string[] array, ref int dim)                             // Funzione 'BubbleSort' per ordinare gli elementi dell'array
+        {
+            int x, y;                                                                   // Dichiarazione variabili tipo intero 'x' e 'y'
+            string temp;                                                                // Dichiarazione variabile tipo stringa 'temp'
+            for (x = 0; x < dim - 1; x++)                                               // Ciclo per scorrerer tutto l'array
+            {
+                for (y = 0; y < dim - 1; y++)                                           // Ciclo confronto a coppie
+                {
+                    int comp = string.Compare(array[y], array[y + 1]);                  // Dichiarazione variabile 'comp' (string.Compare restituisce un intero che indica se la prima stringa è minore (-1), uguale (0) o maggiore (1) rispetto alla seconda stringa.)
+                    if (comp == 1)                                                      // Se 'comp' uguale a '1'
+                    {
+                        temp = array[y];                                                // Salvataggio del elemento alla posizione 'y' dell'array in 'temp'
+                        array[y] = array[y + 1];                                        // Scambio elemento successivo a 'y' nella posizione 'y'
+                        array[y + 1] = temp;                                            // Spostamento elemento contenuto in 'temp' nella posizione successiva a 'y'
+                    } 
+                }
+            }
+        }
         // Ricerca sequenziale;
         static int RicercaSeq(string e, string[] array)                                 // Funzione 'RicercaSeq' che cerca e restituisce la posizione di un elemento
         {
