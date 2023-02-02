@@ -127,6 +127,7 @@ namespace GestioneArrayStringhe
                         Visualizza(array, ref dim);                                     // Chiamata funzione 'Visualizza'
                         break;                                                          // Interrompere esecuzione
                     case 8:                                                             // Se 'scelta' uguale a 8
+                        Lunghezza(array, ref dim);                                      // Chiamata funzione 'Lumghezza'
                         break;                                                          // Interrompere esecuzione
                     case 9:                                                             // Se 'scelta' uguale a 9
                         Console.Write("Inserire l'elemento: ");                         // Stampa 'Inserire l'elemento:'
@@ -260,6 +261,25 @@ namespace GestioneArrayStringhe
             }
         }
         // Ricerca del nome più lungo e più corto;
+        static void Lunghezza(string[] array, ref int dim)                              // Funzione 'Lunghezza' che ricerca e restituisce il nome più lungo e più corto
+        {
+            string longstr = array[0], shortstr = array[0];                             // Dichiarazione varabili tipo stringa 'longstr' e 'shortstr'
+            for (int i = 1; i < dim; i++)                                               // Ciclo per scorrere tutto l'array
+            {
+                if (array[i].Length > longstr.Length)                                   // Se lunghezza dell'elemento in posizione 'i' è maggiore rispetto a quella della lunghezza di 'longstr'
+                {
+                    longstr = array[i];                                                 // Assegna a 'longstr' elemento array in posizione 'i'
+                }
+                if (array[i].Length < shortstr.Length)                                  // Se lunghezza dell'elemento in posizione 'i' è minore rispetto a quella della lunghezza di 'shortstr'
+                {
+                    shortstr = array[i];                                                // Assegna a 'shortstr' elemento array in posizione 'i'
+                }
+            }
+            Thread.Sleep(1000);                                                         // Attesa esecuzione di 1 secondo
+            Console.ForegroundColor = ConsoleColor.Green;                               // Imposta colore carattere a verde
+            Console.WriteLine("L'elemento più lungo è: '" + longstr + "', mentre l'elemento più corto è: '" + shortstr + "'."); // Stampa dell'elemento più lungo e più corto
+            Console.ResetColor();                                                       // Reimposta colore
+        }
         // Cancellazione di tutte le occorrenze di un nome;
         static bool CancellaOcc(string e, string[] array, ref int dim)                  // Funzione 'CancellaOcc' che cancella tutte le occorrenze di un elemento
         {
