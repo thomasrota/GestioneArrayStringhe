@@ -161,14 +161,14 @@ namespace GestioneArrayStringhe
         static bool CancellaSingolo(string e, string[] array, ref int dim)              // Funzione 'CancellaSingolo' per cancellare un singolo elemento dall'array
         {
             bool cancellatos = false;                                                   // Dichiarazione variabile 'cancellatos'
-            for (int i = 0; i < array.Length; i++)                                      // Ciclo
+            for (int i = 0; i < dim; i++)                                               // Ciclo
             {
                 if (array[i] == e)                                                      // Condizione per verificare che a 'i' sia presente 'e'
                 {
-                    dim--;                                                              // Diminuzione variabile 'dim'
-                    for (int j = i; j < array.Length - 1; j++)                          // Ciclo per spostare di una posizione indietro tutti i valori dopo la posizione del valore eliminato
+                    for (int j = i; j < dim - 1; j++)                                   // Ciclo per spostare di una posizione indietro tutti i valori dopo la posizione del valore eliminato
                     {
                         array[j] = array[j + 1];                                        // Assegnazione all'elemento in posizione 'j' l'elemento successivo
+                        dim--;                                                              // Diminuzione variabile 'dim'
                     }
                     cancellatos = true;                                                 // Assegnazione alla variabile 'cancellatos' il valore 'true'
                     break;                                                              // Interruzione esecuzione
