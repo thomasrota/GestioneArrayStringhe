@@ -90,25 +90,12 @@ namespace GestioneArrayStringhe
                         }
                         break;                                                          // Interrompere esecuzione
                     case 5:                                                             // Se 'scelta' uguale a 5
-                        Console.Write("Inserire l'elemento: ");                         // Stampa 'Inserire l'elemento: '
-                        e = Console.ReadLine();                                         // Input variabile 'e'
-                        if (NumeroRipet(e, array) != 0)                                 // Se il valore resituito dalla funzione 'NumeroRipet' è diverso da 0
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;               // Imposta colore carattere a verde
-                            Console.WriteLine($"L'elemento '{e}' si ripete per " + NumeroRipet(e, array) + " volta/e");  // Stampa 'L'elemento '{e}' si ripete per " + valore resituito dalla funzione 'NumeroRipet' + " volta/e'
-                            Console.ResetColor();                                       // Resetta colore
-                        }
-                        else                                                            // Altrimenti
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;                 // Imposta colore carattere a rosso
-                            Console.WriteLine($"L'elemento '{e}' non è presente nell'array");  // Stampa 'L'elemento '{e}' non è presente nell'array'
-                            Console.ResetColor();                                       // Resetta colore
-                        }
+                        NumeroRipet(array, ref dim);                                    // Chiamata funzione 'NumeroRipet'
                         break;                                                          // Interrompere esecuzione
                     case 6:                                                             // Se 'scelta' uguale a 6
                         Console.Write("Inserire posizione dell'elemento che si vuole modificare: ");    // Stampa 'Inserire posizione dell'elemento che si vuole modificare:'
                         int p = Convert.ToInt32(Console.ReadLine());                    // Input variabile 'p'
-                        Console.Write("Inserire elemento: ");                           // Stampa 'Inserire elemento:'
+                        Console.Write("Inserire nuovo elemento: ");                     // Stampa 'Inserire nuovo elemento:'
                         e = Console.ReadLine();                                         // Input variabile 'e'
                         if (ModificaN(e, p, array, ref dim) == false)                   // Se valore restituito dalla variabile 'ModificaN' è 'false'
                         {
@@ -149,10 +136,11 @@ namespace GestioneArrayStringhe
                         Environment.Exit(1);                                            // Uscita programma
                         break;                                                          // Interrompere esecuzione
                 }
+                Console.Write("\nPremere un tasto per continuare...");                  // Stampa 'Premere un tasto per continuare...'
                 Console.ReadKey();                                                      // Attesa un'azione da parte dell'utente prima di continuare l'esecuzione
             } while (scelta != 0);                                                      // ...mentre variabile 'scelta' è diversa da 0
         }
-        // Funzioni
+        # region Funzioni
         // Aggiunta di un nome;
         static bool Aggiunta(string e, string[] array, ref int index)                   // Funzione 'Aggiunta' per aggiungere elementi all'array
         {
@@ -192,7 +180,7 @@ namespace GestioneArrayStringhe
         {
             int x, y;                                                                   // Dichiarazione variabili tipo intero 'x' e 'y'
             string temp;                                                                // Dichiarazione variabile tipo stringa 'temp'
-            for (x = 0; x < dim - 1; x++)                                               // Ciclo per scorrerer tutto l'array
+            for (x = 0; x < dim - 1; x++)                                               // Ciclo per scorrere tutto l'array
             {
                 for (y = 0; y < dim - 1; y++)                                           // Ciclo confronto a coppie
                 {
@@ -225,17 +213,50 @@ namespace GestioneArrayStringhe
             return risultatoricerca;                                                    // Restituisci 'risultatoricerca'
         }
         // Visualizza nomi ripetuti con numero ripetizioni;
-        static int NumeroRipet(string e, string[] array)                                // Funzione 'NumeroRipet' che restituisce il numero di volte che si ripete il valore all'interno dell'array
+        static void NumeroRipet(string[] array, ref int dim)                            // Funzione 'NumeroRipet' che restituisce il numero di volte che si ripete un elemento all'interno dell'arrayay
         {
-            int nr = 0;                                                                 // Dichiarazione variabile 'nr'
-            for (int i = 0; i < array.Length; i++)                                      // Ciclo controllo che scorre l'array
+            int[] occ = new int[dim];                                                   // Dichiarazine array interi 'occ'
+            string[] onc = new string[dim];                                             // Dichiarazione array stringhe 'onc'
+            for (int i = 0; i < dim; i++)                                               // Ciclo inserimento valori variabile appoggio 'onc'
             {
-                if (array[i] == e)                                                      // Se l'elemento dell'array in posizione 'i' equivale all'elemento inserito ('e')
+                onc[i] = array[i];                                                      // Inserimento elementi
+            }
+            int x, y;                                                                   // Dichiarazione variabili intere 'x' e 'y'
+            string temp;                                                                // Dichiarazione variabile stringa 'temp'
+            for (x = 0; x < dim - 1; x++)                                               // Ciclo per scorrere tutto l'array
+            {
+                for (y = 0; y < dim - 1; y++)                                           // Ciclo confronto a coppie
                 {
-                    nr++;                                                               // Incrementa variabile 'nr'
+                    int comp = string.Compare(onc[y], onc[y + 1]);                      // Dichiarazione variabile 'comp' (string.Compare restituisce un intero che indica se la prima stringa è minore (-1), uguale (0) o maggiore (1) rispetto alla seconda stringa.)
+                    if (comp == 1)                                                      // Se 'comp' uguale a '1'
+                    {
+                        temp = onc[y];                                                  // Inserisci in 'temp' elemento dell'array 'onc' in posizione 'y'
+                        onc[y] = onc[y + 1];                                            // Scambio elemento successivo a 'y' nella posizione 'y'
+                        onc[y + 1] = temp;                                              // Spostamento elemento contenuto in 'temp' nella posizione successiva a 'y'
+                    }
                 }
             }
-            return nr;                                                                  // Restituire 'nr'
+            for (int i = 0; i < dim; i++)                                               // Ciclo
+            {
+                if (onc[i] != "")                                                       // Se elemento array 'onc' in posizione 'i' è uguale a ' '
+                {
+                    occ[i] = 1;                                                         // Assegnazione ad array 'occ' in posizione '1'
+                    for (int j = i + 1; j < dim; j++)                                   // Ciclo
+                    {
+                        if (onc[i] == onc[j])                                           // Se elemento array 'onc' in posizione 'i' è uguale all'elemento dell'array 'onc' in posizione 'j'
+                        {
+                            onc[j] = "";                                                // Assegna ' ' a 'onc[j]' 
+                            occ[i]++;                                                   // Incrementa 'occ[i]'
+                        }
+                    }
+                    if (occ[i] > 1)                                                     // Se elemento array 'occ' in posizione 'i' è maggiore di 1
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;                   // Imposta colore carattere a verde    
+                        Console.WriteLine($"Numero ripetizioni '{onc[i]}': {occ[i]}");  // Stampa 'Numero ripetizioni '{onc[i]}': {occ[i]}'
+                        Console.ResetColor();                                           // Reimposta colore
+                    }
+                }
+            }
         }
         // Modifica di un nome;
         static bool ModificaN(string e, int p, string[] array, ref int dim)             // Funzione 'MofificaN' che va a modificare un elemento in una determinata posizone
@@ -299,5 +320,6 @@ namespace GestioneArrayStringhe
             }
             return canc;                                                                // Restituire 'canc'
         }
+        #endregion Funzioni
     }
 }
