@@ -26,7 +26,7 @@ namespace GestioneArrayStringhe
                 Console.WriteLine();                                                    // A capo
                 Console.Write("Inserisci la scelta: ");                                 // Scelta opzione
                 scelta = Convert.ToInt32(Console.ReadLine());                           // Input variabile 'scelta'
-                // Esecuzione opzioni
+                #region Esecuzione opzioni
                 switch (scelta)                                                         // Selezione casi in base al valore della variabile 'scelta'
                 {
                     default:                                                            // Se 'scelta' non corrisponde a nessun valore dei casi
@@ -136,11 +136,12 @@ namespace GestioneArrayStringhe
                         Environment.Exit(1);                                            // Uscita programma
                         break;                                                          // Interrompere esecuzione
                 }
+                #endregion Esecuzione Opzioni
                 Console.Write("\nPremere un tasto per continuare...");                  // Stampa 'Premere un tasto per continuare...'
                 Console.ReadKey();                                                      // Attesa un'azione da parte dell'utente prima di continuare l'esecuzione
             } while (scelta != 0);                                                      // ...mentre variabile 'scelta' è diversa da 0
         }
-        # region Funzioni
+        #region Funzioni
         // Aggiunta di un nome;
         static bool Aggiunta(string e, string[] array, ref int index)                   // Funzione 'Aggiunta' per aggiungere elementi all'array
         {
